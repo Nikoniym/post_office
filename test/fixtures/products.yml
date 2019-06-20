@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  parcel_code: 1
+  quantity: 1
+  price: 1
+
+two:
+  parcel_code: 1
+  quantity: 1
+  price: 1

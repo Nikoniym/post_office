@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  guid: MyString
+  batch_id: 1
+  creation_date: 2019-06-20
+
+two:
+  guid: MyString
+  batch_id: 1
+  creation_date: 2019-06-20
