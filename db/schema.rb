@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_20_180745) do
+ActiveRecord::Schema.define(version: 2019_06_20_181659) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,5 +36,36 @@ ActiveRecord::Schema.define(version: 2019_06_20_180745) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
+  create_table "invoices", force: :cascade do |t|
+    t.integer "company_code"
+    t.integer "operation_number"
+    t.date "operation_date"
+    t.bigint "parcel_list_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["parcel_list_id"], name: "index_invoices_on_parcel_list_id"
+  end
+
+  create_table "parcel_lists", force: :cascade do |t|
+    t.string "guid"
+    t.integer "batch_id"
+    t.date "creation_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "products", force: :cascade do |t|
+    t.string "parcel_code"
+    t.integer "quantity"
+    t.integer "price"
+    t.bigint "invoice_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["invoice_id"], name: "index_products_on_invoice_id"
+    t.index ["parcel_code", "quantity"], name: "index_products_on_parcel_code_and_quantity"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "invoices", "parcel_lists"
+  add_foreign_key "products", "invoices"
 end
