@@ -1,4 +1,6 @@
-h1 Импорт посылок
+h1 Import of parcels
+
+.messages = File.read('log/import_data.log')
 
 = form_for @parcel_list do |f|
   = f.file_field :file

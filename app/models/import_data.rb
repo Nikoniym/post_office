@@ -3,7 +3,7 @@ class ImportData
     def from_xml(file_xml)
       create_parcel_list(ActionPack::XmlParser.call(file_xml)['Root'])
     rescue StandardError => e
-      Rails.logger.import_data.error "\n#{e.message}\n#{e.backtrace}"
+      Rails.logger.import_data.error e.message
     end
 
     private
@@ -15,7 +15,7 @@ class ImportData
                                    creation_date: hash_result['FileData']['Batch']['CreationDate'])
 
       # Возвращаем если данный список не проходит валидацию по guid и batch_id
-      return unless parcel_list.save!
+      raise parcel_list.validate! unless parcel_list.valid?
 
       hash_result = hash_result['FileData']
 
@@ -42,7 +42,7 @@ class ImportData
         new_product(invoice, hash_invoice['InvoiceData'])
       end
 
-      invoice.save!
+      parcel_list.save!
     end
 
     # Новый продукты

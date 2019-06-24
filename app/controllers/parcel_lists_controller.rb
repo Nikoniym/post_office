@@ -1,8 +1,6 @@
 class ParcelListsController < ApplicationController
   def index
     @parcel_list = ParcelList.new
-
-    @parcel_lists = ParcelList.order(:created_at)
   end
 
   def create
